@@ -3,13 +3,13 @@ import { motion } from "framer-motion";
 import { Github, ExternalLink } from "lucide-react";
 import { supabase } from "../supabaseClient"; 
 
-// تعريف النوع ليتطابق تماماً مع الـ SQL Schema الخاص بكِ
+
 interface Project {
   id: number;
   title: string;
   description: string;
-  github_link: string; // مطابق لاسم العمود في SQL
-  demo_link: string;   // مطابق لاسم العمود في SQL
+  github_link: string; 
+  demo_link: string;   
   category: string;
 }
 
@@ -36,7 +36,7 @@ const ProjectsSection = () => {
     fetchProjects();
   }, []);
 
-  if (loading) return <div className="text-center py-20 opacity-50">جاري تحميل أعمالك...</div>;
+  if (loading) return <div className="text-center py-20 opacity-50">جاري تحميل ...</div>;
 
   return (
     <section id="projects" className="section-padding">
