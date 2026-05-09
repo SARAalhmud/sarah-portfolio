@@ -1,48 +1,54 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Github, ExternalLink } from "lucide-react";
-import { supabase } from "../supabaseClient"; 
-
 
 interface Project {
   id: number;
   title: string;
   description: string;
-  github_link: string; 
-  demo_link: string;   
+  github_link: string;
+  demo_link: string;
   category: string;
 }
 
 const ProjectsSection = () => {
-  const [projects, setProjects] = useState<Project[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchProjects = async () => {
-      setLoading(true);
-      const { data, error } = await supabase
-        .from("projects")
-        .select("*")
-        .order("id", { ascending: false });
-
-      if (error) {
-        console.error("Error:", error.message);
-      } else {
-        setProjects(data || []);
-      }
-      setLoading(false);
-    };
-
-    fetchProjects();
-  }, []);
-
-  if (loading) return <div className="text-center py-20 opacity-50">جاري تحميل ...</div>;
+  const [projects] = useState<Project[]>([
+    {
+      id: 1,
+      title: "منصة نادي التقنيين في سوريا",
+      description:
+        "نظام يهدف إلى ربط الكفاءات التقنية بالشركات، تم تطويره باستخدام Laravel و MySQL.",
+      github_link:
+        "https://github.com/SARAalhmud/syrai/blob/main/README.md",
+      demo_link: "#",
+      category: "Laravel",
+    },
+    {
+      id: 2,
+      title: "نظام بيع وإدارة السيارات",
+      description:
+        "منصة لإدارة وعرض إعلانات السيارات باستخدام Laravel 9 مع اختبارات PHPUnit لضمان استقرار النظام.",
+      github_link:
+        "https://github.com/SARAalhmud/care_new/blob/main/README.md",
+      demo_link: "#",
+      category: "Laravel",
+    },
+    {
+      id: 3,
+      title: "الموقع الشخصي (AI Assistant)",
+      description:
+        "مشروع شخصي قيد التطوير يعتمد على دمج مساعد ذكي للرد على استفسارات الزوار برمجياً.",
+      github_link: "#",
+      demo_link: "#",
+      category: "AI",
+    },
+  ]);
 
   return (
     <section id="projects" className="section-padding">
       <div className="max-w-6xl mx-auto">
         <h2 className="heading-display text-3xl mb-10">المشاريع</h2>
-        
+
         <div className="grid md:grid-cols-2 gap-6">
           {projects.map((project, i) => (
             <motion.div
@@ -55,35 +61,45 @@ const ProjectsSection = () => {
             >
               <div className="relative">
                 <div className="flex items-start justify-between mb-3">
-                  <h3 className="font-semibold text-foreground text-lg">{project.title}</h3>
+                  <h3 className="font-semibold text-foreground text-lg">
+                    {project.title}
+                  </h3>
+
                   <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded">
                     {project.category || "عام"}
                   </span>
                 </div>
-                
+
                 <p className="body-text mb-4 text-sm text-muted-foreground">
                   {project.description}
                 </p>
 
                 <div className="flex items-center gap-4 mt-auto">
-                  {project.github_link && (
-                    <a
-                      href={project.github_link}
-                      target="_blank"
-                      className="inline-flex items-center gap-1.5 text-sm hover:text-primary transition-colors"
-                    >
-                      <Github size={16} /> GitHub
-                    </a>
-                  )}
-                  {project.demo_link && project.demo_link !== "#" && (
-                    <a
-                      href={project.demo_link}
-                      target="_blank"
-                      className="inline-flex items-center gap-1.5 text-sm hover:text-primary transition-colors"
-                    >
-                      <ExternalLink size={16} /> معاينة
-                    </a>
-                  )}
+                  {project.github_link &&
+                    project.github_link !== "#" && (
+                      <a
+                        href={project.github_link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 text-sm hover:text-primary transition-colors"
+                      >
+                        <Github size={16} />
+                        GitHub
+                      </a>
+                    )}
+
+                  {project.demo_link &&
+                    project.demo_link !== "#" && (
+                      <a
+                        href={project.demo_link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 text-sm hover:text-primary transition-colors"
+                      >
+                        <ExternalLink size={16} />
+                        معاينة
+                      </a>
+                    )}
                 </div>
               </div>
             </motion.div>
