@@ -33,15 +33,7 @@ const ProjectsSection = () => {
       demo_link: "#",
       category: "Laravel",
     },
-    {
-      id: 3,
-      title: "الموقع الشخصي (AI Assistant)",
-      description:
-        "مشروع شخصي قيد التطوير يعتمد على دمج مساعد ذكي للرد على استفسارات الزوار برمجياً.",
-      github_link: "#",
-      demo_link: "#",
-      category: "AI",
-    },
+  
   ]);
 
   return (
